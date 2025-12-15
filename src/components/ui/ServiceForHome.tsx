@@ -1,7 +1,7 @@
 "use client";
 
 import * as React from "react";
-import { motion, Variants } from "framer-motion";
+import { motion, Variants,Transition } from "framer-motion";
 import {
   Megaphone,
   Users,
@@ -72,7 +72,7 @@ const services = [
 
 const flipTransition = {
   duration: 0.6,
-  type: "spring",
+  type: "spring" as const,
   stiffness: 120,
   damping: 20,
 };
