@@ -13,6 +13,7 @@ import {
   ShoppingBag,
   Check
 } from "lucide-react";
+import { JSX } from "react";
 
 const services = [
   {
