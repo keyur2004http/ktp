@@ -9,9 +9,6 @@ import { Textarea } from "@/components/ui/textarea";
 
 export default function ContactSection() {
 
-
-  
-
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",
@@ -113,15 +110,15 @@ export default function ContactSection() {
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.03 }}
                   className={`group flex items-start space-x-3 p-4 rounded-xl transition-all duration-500  ${isActive
-                      ? "bg-gradient-to-br from-teal-700 via-teal-800 to-teal-900 text-white ]"
-                      : "bg-white border border-gray-100 text-gray-800 hover:bg-gradient-to-br hover:from-teal-700 hover:via-teal-800 hover:to-teal-900 hover:text-white 3]"
+                    ? "bg-gradient-to-br from-teal-700 via-teal-800 to-teal-900 text-white ]"
+                    : "bg-white border border-gray-100 text-gray-800 hover:bg-gradient-to-br hover:from-teal-700 hover:via-teal-800 hover:to-teal-900 hover:text-white 3]"
                     }`}
                 >
                   {/* === ICON CONTAINER === */}
                   <div
                     className={`flex-shrink-0 p-4 rounded-xl transition-colors duration-500 ${isActive
-                        ? "bg-white/20"
-                        : "bg-gray-100 group-hover:bg-white/20"
+                      ? "bg-white/20"
+                      : "bg-gray-100 group-hover:bg-white/20"
                       }`}
                   >
                     <div
@@ -142,8 +139,8 @@ export default function ContactSection() {
                     </h3>
                     <p
                       className={`text-sm mt-1 transition-colors duration-500 ${isActive
-                          ? "text-gray-300"
-                          : "text-gray-600 group-hover:text-gray-300"
+                        ? "text-gray-300"
+                        : "text-gray-600 group-hover:text-gray-300"
                         }`}
                     >
                       {item.desc}
@@ -160,11 +157,33 @@ export default function ContactSection() {
         <motion.form
           action="https://formsubmit.co/ktpofficial1008@gmail.com"
           method="POST"
-          onSubmit={(e) => {
-            if (!validateForm()) {
-              e.preventDefault();
-            }
-          }}
+         onSubmit={async (e) => {
+  e.preventDefault(); // Stop page reload
+  if (!validateForm()) return;
+
+  setIsSubmitting(true);
+
+  try {
+    const response = await fetch("https://formsubmit.co/ajax/ktpofficial1008@gmail.com", {
+      method: "POST",
+      headers: { 
+        'Content-Type': 'application/json',
+        'Accept': 'application/json'
+      },
+      body: JSON.stringify(form)
+    });
+
+    if (response.ok) {
+      alert("Message sent successfully!");
+      setForm({ firstname: "", lastname: "", email: "", subject: "", message: "" });
+    }
+  } catch (error) {
+    console.error("Error sending mail", error);
+  } finally {
+    setIsSubmitting(false);
+  }
+}}
+
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
@@ -176,7 +195,7 @@ export default function ContactSection() {
               <Label htmlFor="firstname">First Name *</Label>
               <Input
                 id="firstname"
-                name="First Name"
+                name="firstname"
                 value={form.firstname}
                 onChange={handleChange}
                 className={`${errors.firstname ? "border-red-500" : ""}`}
@@ -190,10 +209,10 @@ export default function ContactSection() {
               <Label htmlFor="lastname">Last Name *</Label>
               <Input
                 id="lastname"
-                name="Last Name"
+                name="lastname"
                 value={form.lastname}
                 onChange={handleChange}
-                className={`${errors.firstname ? "border-red-500" : ""}`}
+                className={`${errors.lastname ? "border-red-500" : ""}`}
               />
 
               {errors.lastname && (
@@ -210,7 +229,7 @@ export default function ContactSection() {
               type="email"
               value={form.email}
               placeholder="you@example.com"
-              className={`${errors.firstname ? "border-red-500" : ""}`}
+              className={`${errors.email ? "border-red-500" : ""}`}
               onChange={handleChange}
             />
 
@@ -223,9 +242,9 @@ export default function ContactSection() {
             <Label htmlFor="subject">Subject *</Label>
             <Input
               id="subject"
-              name="Subject"
+              name="subject"
               value={form.subject}
-              className={`${errors.firstname ? "border-red-500" : ""}`}
+              className={`${errors.subject ? "border-red-500" : ""}`}
               onChange={handleChange}
             />
 
@@ -238,10 +257,10 @@ export default function ContactSection() {
             <Label htmlFor="message">Message *</Label>
             <Textarea
               id="message"
-              name="Message"
+              name="message"
               rows={4}
               value={form.message}
-              className={`${errors.firstname ? "border-red-500" : ""}`}
+              className={`${errors.message ? "border-red-500" : ""}`}
               onChange={handleChange}
             />
 
@@ -273,8 +292,10 @@ export default function ContactSection() {
           <input type="hidden" name="_captcha" value="false" />
           <input type="hidden" name="_template" value="table" />
           <input type="hidden" name="_subject" value="New Contact Form Submission" />
-          <input type="hidden" name="_next" value="http://localhost:3000/contact?success=true" />
-          <input type="hidden" name="_replyto" value="%email%" />
+          {/* Note: In production, change localhost to your actual domain */}
+          <input type="hidden" name="_next" value="https://kreativetechpartner.netlify.app/thank-you" />
+
+
         </motion.form>
       </div>
     </section>
