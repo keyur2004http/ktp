@@ -13,9 +13,10 @@ export default function ContactSection() {
     firstname: "",
     lastname: "",
     email: "",
-    subject: "",
+    phone: "",
     message: "",
   });
+  
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -53,7 +54,9 @@ export default function ContactSection() {
     if (!form.email.trim()) newErrors.email = "Email is required.";
     else if (!/\S+@\S+\.\S+/.test(form.email))
       newErrors.email = "Email is invalid.";
-    if (!form.subject.trim()) newErrors.subject = "Subject is required.";
+      if (!/^[0-9]{10}$/.test(form.phone)) {
+        newErrors.phone = "Phone must be 10 digits";
+      }
     if (!form.message.trim()) newErrors.message = "Message is required.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -174,8 +177,8 @@ export default function ContactSection() {
     });
 
     if (response.ok) {
-      alert("Message sent successfully!");
-      setForm({ firstname: "", lastname: "", email: "", subject: "", message: "" });
+      <input type="hidden" name="_next" value="https://kreativetechpartner.netlify.app/thank-you" />
+      setForm({ firstname: "", lastname: "", email: "", phone: "", message: "" });
     }
   } catch (error) {
     console.error("Error sending mail", error);
@@ -239,19 +242,34 @@ export default function ContactSection() {
           </div>
 
           <div className="mb-6">
-            <Label htmlFor="subject">Subject *</Label>
-            <Input
-              id="subject"
-              name="subject"
-              value={form.subject}
-              className={`${errors.subject ? "border-red-500" : ""}`}
-              onChange={handleChange}
-            />
+  <Label htmlFor="phone">Phone *</Label>
 
-            {errors.subject && (
-              <p className="text-red-500 text-sm">{errors.subject}</p>
-            )}
-          </div>
+  <div className="flex">
+    <span className="flex items-center px-3 rounded-l-md border border-r-0 bg-gray-100 text-gray-600">
+      +91
+    </span>
+
+    <Input
+      id="phone"
+      name="phone"
+      type="text"
+      inputMode="numeric"
+      maxLength={10}
+      value={form.phone}
+      onChange={(e) => {
+        const onlyNumbers = e.target.value.replace(/\D/g, "");
+        setForm({ ...form, phone: onlyNumbers });
+      }}
+      placeholder="9876543210"
+      className={`rounded-l-none ${errors.phone ? "border-red-500" : ""}`}
+    />
+  </div>
+
+  {errors.phone && (
+    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+  )}
+</div>
+
 
           <div className="mb-8">
             <Label htmlFor="message">Message *</Label>
