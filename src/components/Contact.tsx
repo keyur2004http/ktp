@@ -6,19 +6,11 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-import { useSearchParams } from "next/navigation";
+
 export default function ContactSection() {
 
 
-  const searchParams = useSearchParams();
-  const success = searchParams.get("success");
-  {
-    success && (
-      <div className="fixed top-6 right-6 z-50 bg-teal-600 text-white px-6 py-4 rounded-xl shadow-xl">
-        ✅ Message sent successfully!
-      </div>
-    )
-  }
+  
 
   const [form, setForm] = useState({
     firstname: "",
