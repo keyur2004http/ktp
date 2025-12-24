@@ -60,7 +60,7 @@ export default function WhyChooseUs() {
             We blend creativity and strategy to deliver marketing that performs — turning insights into impactful growth.
           </p>
 
-          <div className="grid sm:grid-cols-2 gap-10 ">
+          <div className="grid sm:grid-cols-2  gap-10 ">
             {features.map((feature, index) => {
               const isActive = index === 0; // highlight first one
               return (

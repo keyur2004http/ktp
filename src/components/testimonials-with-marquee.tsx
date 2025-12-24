@@ -59,29 +59,29 @@ function TestimonialsSection({
 const testimonials = [
   {
     author: {
-      name: "Emma Thompson",
-      handle: "@emmaai",
-      avatar: "https://images.unsplash.com/photo-1494790108377-be9c29b29330?w=150&h=150&fit=crop&crop=face"
+      name: "Kirit trivedi",
+      handle: "@Anshika flower",
+      avatar: "./Assets/icones/person.webp"
     },
-    text: "Using this AI platform has transformed how we handle data analysis. The speed and accuracy are unprecedented.",
+    text: "Great digital marketing service with clear strategy and real results. Highly recommended.",
     href: ""
   },
   {
     author: {
-      name: "David Park",
-      handle: "@davidtech",
-      avatar: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=150&h=150&fit=crop&crop=face"
+      name: "Chetan shah",
+      handle: "@Immitation jwellery",
+      avatar: "./Assets/icones/person.webp"
     },
-    text: "The API integration is flawless. We've reduced our development time by 60% since implementing this solution.",
+    text: "Professional team, creative ideas, and excellent support throughout the project.",
     href: ""
   },
   {
     author: {
-      name: "Sofia Rodriguez",
-      handle: "@sofiaml",
-      avatar: "https://images.unsplash.com/photo-1534528741775-53994a69daeb?w=150&h=150&fit=crop&crop=face"
+      name: "Mayur trivedi",
+      handle: "@Samor masala",
+      avatar: "./Assets/icones/person.webp"
     },
-    text: "Finally, an AI tool that actually understands context! The accuracy in natural language processing is impressive."
+    text: "Our online reach improved quickly thanks to their smart digital marketing approach."
   }
 ]
 

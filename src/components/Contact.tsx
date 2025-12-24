@@ -7,8 +7,20 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
-
+import { useSearchParams } from "next/navigation";
 export default function ContactSection() {
+
+
+  const searchParams = useSearchParams();
+  const success = searchParams.get("success");
+  {
+    success && (
+      <div className="fixed top-6 right-6 z-50 bg-teal-600 text-white px-6 py-4 rounded-xl shadow-xl">
+        ✅ Message sent successfully!
+      </div>
+    )
+  }
+
   const [form, setForm] = useState({
     firstname: "",
     lastname: "",
@@ -66,22 +78,7 @@ export default function ContactSection() {
     if (errors[e.target.id]) setErrors({ ...errors, [e.target.id]: "" });
   };
 
-  const handleSubmit = (e: React.FormEvent) => {
-    e.preventDefault();
-    if (!validateForm()) return;
-    setIsSubmitting(true);
-    setTimeout(() => {
-      alert("✅ Message sent successfully!");
-      setForm({
-        firstname: "",
-        lastname: "",
-        email: "",
-        subject: "",
-        message: "",
-      });
-      setIsSubmitting(false);
-    }, 1500);
-  };
+
 
   return (
     <section className="relative py-40 px-6 lg:px-20 bg-gradient-to-br from-gray-200 via-white to-slate-100 overflow-hidden">
@@ -115,82 +112,85 @@ export default function ContactSection() {
           </p>
 
           <div className="grid sm:grid-cols-2 gap-5">
-  {contactMethods.map((item, index) => {
-    const isActive = index === 0; // Highlight "Email Us"
-    return (
-      <motion.a
-        key={index}
-        href={item.link}
-        target="_blank"
-        rel="noopener noreferrer"
-        whileHover={{ scale: 1.03 }}
-        className={`group flex items-start space-x-3 p-4 rounded-xl transition-all duration-500  ${
-          isActive
-            ? "bg-gradient-to-br from-teal-700 via-teal-800 to-teal-900 text-white ]"
-            : "bg-white border border-gray-100 text-gray-800 hover:bg-gradient-to-br hover:from-teal-700 hover:via-teal-800 hover:to-teal-900 hover:text-white 3]"
-        }`}
-      >
-        {/* === ICON CONTAINER === */}
-        <div
-          className={`flex-shrink-0 p-4 rounded-xl transition-colors duration-500 ${
-            isActive
-              ? "bg-white/20"
-              : "bg-gray-100 group-hover:bg-white/20"
-          }`}
-        >
-          <div
-            className={`transition-colors duration-500 ${
-              isActive ? "text-white" : "text-[#042f2e] group-hover:text-white"
-            }`}
-          >
-            {item.icon}
-          </div>
-        </div>
+            {contactMethods.map((item, index) => {
+              const isActive = index === 0; // Highlight "Email Us"
+              return (
+                <motion.a
+                  key={index}
+                  href={item.link}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  whileHover={{ scale: 1.03 }}
+                  className={`group flex items-start space-x-3 p-4 rounded-xl transition-all duration-500  ${isActive
+                      ? "bg-gradient-to-br from-teal-700 via-teal-800 to-teal-900 text-white ]"
+                      : "bg-white border border-gray-100 text-gray-800 hover:bg-gradient-to-br hover:from-teal-700 hover:via-teal-800 hover:to-teal-900 hover:text-white 3]"
+                    }`}
+                >
+                  {/* === ICON CONTAINER === */}
+                  <div
+                    className={`flex-shrink-0 p-4 rounded-xl transition-colors duration-500 ${isActive
+                        ? "bg-white/20"
+                        : "bg-gray-100 group-hover:bg-white/20"
+                      }`}
+                  >
+                    <div
+                      className={`transition-colors duration-500 ${isActive ? "text-white" : "text-[#042f2e] group-hover:text-white"
+                        }`}
+                    >
+                      {item.icon}
+                    </div>
+                  </div>
 
-        {/* === TEXT === */}
-        <div>
-          <h3
-            className={`text-lg font-semibold transition-colors duration-500 ${
-              isActive ? "text-white" : "group-hover:text-white"
-            }`}
-          >
-            {item.title}
-          </h3>
-          <p
-            className={`text-sm mt-1 transition-colors duration-500 ${
-              isActive
-                ? "text-gray-300"
-                : "text-gray-600 group-hover:text-gray-300"
-            }`}
-          >
-            {item.desc}
-          </p>
-        </div>
-      </motion.a>
-    );
-  })}
-</div>
+                  {/* === TEXT === */}
+                  <div>
+                    <h3
+                      className={`text-lg font-semibold transition-colors duration-500 ${isActive ? "text-white" : "group-hover:text-white"
+                        }`}
+                    >
+                      {item.title}
+                    </h3>
+                    <p
+                      className={`text-sm mt-1 transition-colors duration-500 ${isActive
+                          ? "text-gray-300"
+                          : "text-gray-600 group-hover:text-gray-300"
+                        }`}
+                    >
+                      {item.desc}
+                    </p>
+                  </div>
+                </motion.a>
+              );
+            })}
+          </div>
 
         </motion.div>
 
         {/* === RIGHT SIDE FORM === */}
         <motion.form
-          onSubmit={handleSubmit}
+          action="https://formsubmit.co/ktpofficial1008@gmail.com"
+          method="POST"
+          onSubmit={(e) => {
+            if (!validateForm()) {
+              e.preventDefault();
+            }
+          }}
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
           transition={{ duration: 0.6 }}
           className="bg-white/90 backdrop-blur-md p-10 rounded-3xl shadow-xl border border-slate-200 w-full max-w-lg"
         >
+
           <div className="flex gap-4 mb-6">
             <div className="w-full">
               <Label htmlFor="firstname">First Name *</Label>
               <Input
                 id="firstname"
+                name="First Name"
                 value={form.firstname}
                 onChange={handleChange}
-                placeholder="John"
                 className={`${errors.firstname ? "border-red-500" : ""}`}
               />
+
               {errors.firstname && (
                 <p className="text-red-500 text-sm">{errors.firstname}</p>
               )}
@@ -199,11 +199,12 @@ export default function ContactSection() {
               <Label htmlFor="lastname">Last Name *</Label>
               <Input
                 id="lastname"
+                name="Last Name"
                 value={form.lastname}
                 onChange={handleChange}
-                placeholder="Doe"
-                className={`${errors.lastname ? "border-red-500" : ""}`}
+                className={`${errors.firstname ? "border-red-500" : ""}`}
               />
+
               {errors.lastname && (
                 <p className="text-red-500 text-sm">{errors.lastname}</p>
               )}
@@ -214,12 +215,14 @@ export default function ContactSection() {
             <Label htmlFor="email">Email *</Label>
             <Input
               id="email"
+              name="email"
               type="email"
               value={form.email}
-              onChange={handleChange}
               placeholder="you@example.com"
-              className={`${errors.email ? "border-red-500" : ""}`}
+              className={`${errors.firstname ? "border-red-500" : ""}`}
+              onChange={handleChange}
             />
+
             {errors.email && (
               <p className="text-red-500 text-sm">{errors.email}</p>
             )}
@@ -229,11 +232,12 @@ export default function ContactSection() {
             <Label htmlFor="subject">Subject *</Label>
             <Input
               id="subject"
+              name="Subject"
               value={form.subject}
+              className={`${errors.firstname ? "border-red-500" : ""}`}
               onChange={handleChange}
-              placeholder="Project inquiry"
-              className={`${errors.subject ? "border-red-500" : ""}`}
             />
+
             {errors.subject && (
               <p className="text-red-500 text-sm">{errors.subject}</p>
             )}
@@ -243,12 +247,13 @@ export default function ContactSection() {
             <Label htmlFor="message">Message *</Label>
             <Textarea
               id="message"
+              name="Message"
               rows={4}
               value={form.message}
+              className={`${errors.firstname ? "border-red-500" : ""}`}
               onChange={handleChange}
-              placeholder="Tell us how we can help..."
-              className={`${errors.message ? "border-red-500" : ""}`}
             />
+
             {errors.message && (
               <p className="text-red-500 text-sm">{errors.message}</p>
             )}
@@ -274,6 +279,11 @@ export default function ContactSection() {
               </>
             )}
           </Button>
+          <input type="hidden" name="_captcha" value="false" />
+          <input type="hidden" name="_template" value="table" />
+          <input type="hidden" name="_subject" value="New Contact Form Submission" />
+          <input type="hidden" name="_next" value="http://localhost:3000/contact?success=true" />
+          <input type="hidden" name="_replyto" value="%email%" />
         </motion.form>
       </div>
     </section>

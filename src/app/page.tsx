@@ -9,7 +9,7 @@ import Navbar from "@/components/Navbar";
 
 import OurSection from "@/components/OurServices";
 import WhyChooseUs from "@/components/WhyChoose";
-import ServicesSection from "@/components/ui/ServiceForHome";
+import ServicesSection from "@/components/ServiceForHome";
 import ServiceSection from "@/components/zigzag";
 
 
