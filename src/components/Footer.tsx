@@ -16,11 +16,11 @@ export const Footer7 = () => {
     },
     {
       icon: Facebook,
-      href: "https://www.instagram.com/ktp.official?igsh=NTRldnJ1d2t3cDdh", // replace
+      href: "https://www.facebook.com/share/1BBYFocEz6/", // replace
     },
     {
       icon: Instagram,
-      href: "https://www.instagram.com/ktp", // replace
+      href: "https://www.instagram.com/ktp.official?igsh=NTRldnJ1d2t3cDdh", // replace
     },
   ];
 
