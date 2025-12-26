@@ -246,7 +246,7 @@ export default function AboutUsPage() {
         viewport={{ once: true }}
         className="relative w-full bg-white overflow-hidden mt-20"
       >
-        <section className="relative py-20 px-6 md:px-10">
+        <section className="relative py-20 px-6 md:px-10 bg-gradient-to-br from-gray-200 via-white to-slate-1001">
           <div className="container mx-auto max-w-6xl">
             {/* Header */}
             <motion.div

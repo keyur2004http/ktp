@@ -16,7 +16,7 @@ export default function ContactSection() {
     phone: "",
     message: "",
   });
-  
+
   const [errors, setErrors] = useState<Record<string, string>>({});
   const [isSubmitting, setIsSubmitting] = useState(false);
 
@@ -54,9 +54,9 @@ export default function ContactSection() {
     if (!form.email.trim()) newErrors.email = "Email is required.";
     else if (!/\S+@\S+\.\S+/.test(form.email))
       newErrors.email = "Email is invalid.";
-      if (!/^[0-9]{10}$/.test(form.phone)) {
-        newErrors.phone = "Phone must be 10 digits";
-      }
+    if (!/^[0-9]{10}$/.test(form.phone)) {
+      newErrors.phone = "Phone must be 10 digits";
+    }
     if (!form.message.trim()) newErrors.message = "Message is required.";
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -72,7 +72,7 @@ export default function ContactSection() {
 
 
   return (
-    <section className="relative py-40 px-6 lg:px-20 bg-gradient-to-br from-gray-200 via-white to-slate-100 overflow-hidden">
+    <section className="relative py-40 px-6 lg:px-20  px-2 bg-gradient-to-br from-gray-200 via-white to-slate-100 overflow-hidden">
       {/* === Background Animation === */}
       <div className="absolute inset-0 -z-10">
         <motion.div
@@ -102,7 +102,7 @@ export default function ContactSection() {
             through the channels below.
           </p>
 
-          <div className="grid sm:grid-cols-2 gap-5">
+          <div className="grid sm:grid-cols-2 grid-cols-2   gap-5">
             {contactMethods.map((item, index) => {
               const isActive = index === 0; // Highlight "Email Us"
               return (
@@ -112,16 +112,16 @@ export default function ContactSection() {
                   target="_blank"
                   rel="noopener noreferrer"
                   whileHover={{ scale: 1.03 }}
-                  className={`group flex items-start space-x-3 p-4 rounded-xl transition-all duration-500  ${isActive
+                  className={`group flex flex-col sm:flex-row items-start sm:items-start gap-3 p-4 rounded-xl transition-all duration-500 ${isActive
                     ? "bg-gradient-to-br from-teal-700 via-teal-800 to-teal-900 text-white ]"
                     : "bg-white border border-gray-100 text-gray-800 hover:bg-gradient-to-br hover:from-teal-700 hover:via-teal-800 hover:to-teal-900 hover:text-white 3]"
                     }`}
                 >
                   {/* === ICON CONTAINER === */}
                   <div
-                    className={`flex-shrink-0 p-4 rounded-xl transition-colors duration-500 ${isActive
-                      ? "bg-white/20"
-                      : "bg-gray-100 group-hover:bg-white/20"
+                    className={`flex-shrink-0 p-3 rounded-xl transition-colors duration-500 ${isActive
+                        ? "bg-white/20"
+                        : "bg-gray-100 group-hover:bg-white/20"
                       }`}
                   >
                     <div
@@ -132,16 +132,17 @@ export default function ContactSection() {
                     </div>
                   </div>
 
+
                   {/* === TEXT === */}
                   <div>
                     <h3
-                      className={`text-lg font-semibold transition-colors duration-500 ${isActive ? "text-white" : "group-hover:text-white"
+                      className={`text-lg font-semibold transition-colors duration-500  ${isActive ? "text-white" : "group-hover:text-white"
                         }`}
                     >
                       {item.title}
                     </h3>
                     <p
-                      className={`text-sm mt-1 transition-colors duration-500 ${isActive
+                      className={`text-xs sm:sm mt-1 transition-colors duration-500 ${isActive
                         ? "text-gray-300"
                         : "text-gray-600 group-hover:text-gray-300"
                         }`}
@@ -160,32 +161,32 @@ export default function ContactSection() {
         <motion.form
           action="https://formsubmit.co/ktpofficial1008@gmail.com"
           method="POST"
-         onSubmit={async (e) => {
-  e.preventDefault(); // Stop page reload
-  if (!validateForm()) return;
+          onSubmit={async (e) => {
+            e.preventDefault(); // Stop page reload
+            if (!validateForm()) return;
 
-  setIsSubmitting(true);
+            setIsSubmitting(true);
 
-  try {
-    const response = await fetch("https://formsubmit.co/ajax/ktpofficial1008@gmail.com", {
-      method: "POST",
-      headers: { 
-        'Content-Type': 'application/json',
-        'Accept': 'application/json'
-      },
-      body: JSON.stringify(form)
-    });
+            try {
+              const response = await fetch("https://formsubmit.co/ajax/ktpofficial1008@gmail.com", {
+                method: "POST",
+                headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+                },
+                body: JSON.stringify(form)
+              });
 
-    if (response.ok) {
-      <input type="hidden" name="_next" value="https://kreativetechpartner.netlify.app/thank-you" />
-      setForm({ firstname: "", lastname: "", email: "", phone: "", message: "" });
-    }
-  } catch (error) {
-    console.error("Error sending mail", error);
-  } finally {
-    setIsSubmitting(false);
-  }
-}}
+              if (response.ok) {
+                <input type="hidden" name="_next" value="https://kreativetechpartner.netlify.app/thank-you" />
+                setForm({ firstname: "", lastname: "", email: "", phone: "", message: "" });
+              }
+            } catch (error) {
+              console.error("Error sending mail", error);
+            } finally {
+              setIsSubmitting(false);
+            }
+          }}
 
           initial={{ opacity: 0, x: 50 }}
           whileInView={{ opacity: 1, x: 0 }}
@@ -242,33 +243,33 @@ export default function ContactSection() {
           </div>
 
           <div className="mb-6">
-  <Label htmlFor="phone">Phone *</Label>
+            <Label htmlFor="phone">Phone *</Label>
 
-  <div className="flex">
-    <span className="flex items-center px-3 rounded-l-md border border-r-0 bg-gray-100 text-gray-600">
-      +91
-    </span>
+            <div className="flex">
+              <span className="flex items-center px-3 rounded-l-md border border-r-0 bg-gray-100 text-gray-600">
+                +91
+              </span>
 
-    <Input
-      id="phone"
-      name="phone"
-      type="text"
-      inputMode="numeric"
-      maxLength={10}
-      value={form.phone}
-      onChange={(e) => {
-        const onlyNumbers = e.target.value.replace(/\D/g, "");
-        setForm({ ...form, phone: onlyNumbers });
-      }}
-      placeholder="9876543210"
-      className={`rounded-l-none ${errors.phone ? "border-red-500" : ""}`}
-    />
-  </div>
+              <Input
+                id="phone"
+                name="phone"
+                type="text"
+                inputMode="numeric"
+                maxLength={10}
+                value={form.phone}
+                onChange={(e) => {
+                  const onlyNumbers = e.target.value.replace(/\D/g, "");
+                  setForm({ ...form, phone: onlyNumbers });
+                }}
+                placeholder="9876543210"
+                className={`rounded-l-none ${errors.phone ? "border-red-500" : ""}`}
+              />
+            </div>
 
-  {errors.phone && (
-    <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
-  )}
-</div>
+            {errors.phone && (
+              <p className="text-red-500 text-sm mt-1">{errors.phone}</p>
+            )}
+          </div>
 
 
           <div className="mb-8">

@@ -21,7 +21,7 @@ const wordVariants = {
 
 function Hero1() {
   return (
-    <section className="w-full bg-white text-[#0f2922] mt-10 overflow-hidden">
+    <section className="w-full bg-gradient-to-br from-gray-200 via-white to-slate-100 text-[#0f2922] mt-10 overflow-hidden">
       <div className="container mx-auto px-4 sm:px-6 lg:px-12">
         <div className="flex flex-col lg:flex-row items-center lg:items-start justify-between gap-10 lg:gap-20 py-16 md:py-24 lg:py-32">
           
@@ -50,36 +50,52 @@ function Hero1() {
             </motion.div>
 
             {/* Headline Animation */}
-            <motion.h1
-              className="text-3xl sm:text-4xl md:text-6xl lg:text-6xl max-w-2xl tracking-tight font-semibold text-[#0f2922] leading-tight"
-              initial="hidden"
-              whileInView="visible"
-              viewport={{ once: true }}
-            >
-              {headline.map((word, i) => (
-                <motion.span
-                  key={i}
-                  
-                  custom={i}
-                  className="inline-block mr-2"
-                >
-                  {word}
-                </motion.span>
-              ))}
-            </motion.h1>
+
+<motion.h1
+  className="text-3xl sm:text-4xl md:text-6xl lg:text-6xl max-w-2xl tracking-tight font-semibold text-[#0f2922] leading-tight"
+  initial="hidden"
+  whileInView="visible"
+  viewport={{ once: true }}
+>
+  {headline.map((word, i) => {
+    const cleanWord = word.replace(".", "");
+
+    return (
+      <motion.span
+        key={i}
+        custom={i}
+        className={`inline-block mr-2
+          ${
+            cleanWord === "Digital"
+              ? "text-[#b99b6d]"
+              : cleanWord === "Market"
+              ? "text-[#b99b6d]"
+              : ""
+          }
+        `}
+      >
+        {word}
+      </motion.span>
+    );
+  })}
+</motion.h1>
+
 
             {/* Paragraph */}
             <motion.p
-              className="text-xs sm:text-sm md:text-lg lg:text-l leading-relaxed text-[#4b4b4b] max-w-2xl mt-3"
-              initial={{ opacity: 0, y: 30 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 1.2, duration: 0.8 }}
-              viewport={{ once: true }}
-            >
-              We help brands grow in the digital world. Our strategies blend
-              creativity with performance. Let’s make your business stand out
-              and succeed online.
-            </motion.p>
+  className="text-xs sm:text-sm md:text-lg lg:text-l leading-relaxed text-[#4b4b4b] max-w-2xl mt-3"
+  initial={{ opacity: 0, y: 30 }}
+  whileInView={{ opacity: 1, y: 0 }}
+  transition={{ delay: 1.2, duration: 0.8 }}
+  viewport={{ once: true }}
+>
+  We help brands grow in the{" "}
+  <span className="font-bold text-teal-800">digital</span>{" "}
+  world. Our strategies blend creativity with{" "}
+  <span className="font-bold text-teal-800">market</span>{" "}
+  performance. Let’s make your business stand out and succeed online.
+</motion.p>
+
 
             {/* CTA Buttons */}
             <motion.div
@@ -104,7 +120,7 @@ function Hero1() {
             <motion.img
               src="./Assets/Background/girl.png"
               alt="Digital Marketing Illustration"
-              className="w-full max-w-[520px] sm:max-w-[600px] md:max-w-[650px] h-auto object-contain sm:object-cover rounded-xl"
+              className="w-full max-w-[520px] sm:max-w-[600px] md:max-w-[650px] h-auto object-contain sm:object-cover rounded-xl "
               whileHover={{ scale: 1.05 }}
               transition={{ type: "spring", stiffness: 200 }}
             />
