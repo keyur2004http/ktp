@@ -5,6 +5,7 @@ import {
   Linkedin,
   Mail,
   Phone,
+  Twitter,
 } from "lucide-react";
 import React from "react";
 
@@ -21,6 +22,10 @@ export const Footer7 = () => {
     {
       icon: Instagram,
       href: "https://www.instagram.com/ktp.official?igsh=NTRldnJ1d2t3cDdh", // replace
+    },
+    {
+      icon: Twitter,
+      href: "https://x.com/NextgenTgp1120", // replace
     },
   ];
 
